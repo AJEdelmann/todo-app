@@ -1,0 +1,119 @@
+$mainBg: #10162f;
+$navBg: #141e3b;
+$inputBg: #18264f;
+$btnBg: #141e3b;
+$btnBorder: #2d5dcc;
+
+* {
+  font-family: 'Work Sans', sans-serif;
+  color: #fff;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  height: 100vh;
+  background: $mainBg;
+  color: white;
+
+  .btn {
+    border: none;
+    font-size: 0.9em;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid $btnBorder;
+    width: 70px;
+    background: $btnBg;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $navBg;
+    min-height: 60px;
+    padding: 10px;
+
+    a {
+      color: white;
+    }
+
+    h1 {
+      letter-spacing: 20px;
+
+      &:hover {
+        color: $btnBorder;
+      }
+    }
+  }
+
+  .main-container {
+    padding: 20px 10px;
+
+    .form-container {
+      .input-item {
+        input {
+          padding: 10px;
+          border-radius: 20px;
+          border: none;
+          background: $inputBg;
+          margin-right: 10px;
+          color: white;
+          font-size: 1.2em;
+          min-width: 300px;
+          border: 1px solid $btnBorder;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+
+    .todos-container {
+      .item {
+        padding: 5px 10px;
+        background: $inputBg;
+        margin: 10px 0;
+        border-radius: 50px;
+        border: 1px solid $btnBorder;
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .todones-container {
+      .item {
+        padding: 5px 10px;
+        background: $inputBg;
+        margin: 10px 0;
+        border-radius: 50px;
+        border: 1px solid $btnBorder;
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          text-decoration: line-through;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
