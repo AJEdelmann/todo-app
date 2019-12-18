@@ -1,11 +1,13 @@
 import React from "react";
 
-const Navigation = () => {
-  return (
-    <nav>
-      <h1>WONDERLIST</h1>
-    </nav>
-  );
-};
+class Navigation extends React.Component {
+  render() {
+    return (
+      <nav>
+        <h1>WONDERLIST</h1>
+      </nav>
+    );
+  }
+}
 
 export default Navigation;

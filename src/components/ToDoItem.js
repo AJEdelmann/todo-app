@@ -1,15 +1,14 @@
 import React from "react";
 
-const ToDoItem = props => {
-  // props.text
-  // props.status
-
-  return (
-    <div className="item">
-      <p>{props.text}</p>
-      <button className="btn">{props.status ? "↻" : "✓"}</button>
-    </div>
-  );
-};
+class ToDoItem extends React.Component {
+  render() {
+    return (
+      <div className="item">
+        <p>{this.props.text}</p>
+        <button className="btn">{this.props.status ? "↻" : "✓"}</button>
+      </div>
+    );
+  }
+}
 
 export default ToDoItem;
