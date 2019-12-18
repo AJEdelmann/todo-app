@@ -3,6 +3,7 @@ $navBg: #141e3b;
 $inputBg: #18264f;
 $btnBg: #141e3b;
 $btnBorder: #2d5dcc;
+$headerHeight: 60px;
 
 * {
   font-family: 'Work Sans', sans-serif;
@@ -17,6 +18,7 @@ body {
   height: 100vh;
   background: $mainBg;
   color: white;
+  overflow: hidden;
 
   .btn {
     border: none;
@@ -26,7 +28,7 @@ body {
     border: 1px solid $btnBorder;
     width: 70px;
     background: $btnBg;
-    color: white;
+    color: #ff9b00;
     font-weight: 700;
     cursor: pointer;
 
@@ -46,6 +48,8 @@ body {
     background: $navBg;
     min-height: 60px;
     padding: 10px;
+    height: $headerHeight;
+    position: sticky;
 
     a {
       color: white;
@@ -62,6 +66,8 @@ body {
 
   .main-container {
     padding: 20px 10px;
+    height: calc(100% - #{$headerHeight});
+    overflow: scroll;
 
     .form-container {
       .input-item {

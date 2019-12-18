@@ -1,12 +1,15 @@
 import React from "react";
 
-function ToDoItem() {
+const ToDoItem = props => {
+  // props.text
+  // props.status
+
   return (
     <div className="item">
-      <p>Clean your face</p>
-      <button className="btn">CHECK</button>
+      <p>{props.text}</p>
+      <button className="btn">{props.status ? "↻" : "✓"}</button>
     </div>
   );
-}
+};
 
 export default ToDoItem;
