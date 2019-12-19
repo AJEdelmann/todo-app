@@ -1,14 +1,20 @@
 import React from "react";
 
-class ToDoItem extends React.Component {
-  render() {
-    return (
-      <div className="item">
-        <p>{this.props.text}</p>
-        <button className="btn">{this.props.status ? "↻" : "✓"}</button>
-      </div>
-    );
+const ToDoItem = props => {
+  function updateItem(e) {
+    e.preventDefault();
+    const id = props.data.id;
+    props.handleUpdate(id);
   }
-}
+
+  return (
+    <div className="item">
+      <p>{props.data.text}</p>
+      <button className="btn" onClick={updateItem}>
+        {props.data.status ? "↻" : "✓"}
+      </button>
+    </div>
+  );
+};
 
 export default ToDoItem;

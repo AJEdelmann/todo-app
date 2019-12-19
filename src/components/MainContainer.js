@@ -20,10 +20,15 @@ class MainContainer extends React.Component {
     };
   }
 
-  handleUpdate = () => {
-    const newData = this.state.items;
-    newData[0].text = "Mach dein Ding";
-    this.setState({ items: newData });
+  handleUpdate = id => {
+    const items = this.state.items;
+    const updatedItems = items.map(el => {
+      if (id === el.id) {
+        el.status = !el.status;
+      }
+      return el;
+    });
+    this.setState({ items: updatedItems });
   };
 
   render() {
@@ -38,7 +43,10 @@ class MainContainer extends React.Component {
           items={todos}
           updateFromChild={this.handleUpdate}
         ></ToDoContainer>
-        <ToDonesContainer items={todones}></ToDonesContainer>
+        <ToDonesContainer
+          items={todones}
+          updateFromChild={this.handleUpdate}
+        ></ToDonesContainer>
       </main>
     );
   }
