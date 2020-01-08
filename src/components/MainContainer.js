@@ -31,6 +31,16 @@ class MainContainer extends React.Component {
     this.setState({ items: updatedItems });
   };
 
+  handleAddTodo = value => {
+    const newItem = {
+      text: value,
+      status: false,
+      id: new Date().getTime()
+    };
+
+    this.setState({ items: [...this.state.items, newItem] });
+  };
+
   render() {
     const data = this.state.items;
     const todos = data.filter(el => !el.status);
@@ -38,7 +48,7 @@ class MainContainer extends React.Component {
 
     return (
       <main className="main-container">
-        <FormContainer></FormContainer>
+        <FormContainer addTodo={this.handleAddTodo}></FormContainer>
         <ToDoContainer
           items={todos}
           updateFromChild={this.handleUpdate}
