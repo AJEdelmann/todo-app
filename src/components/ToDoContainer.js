@@ -2,10 +2,6 @@ import React from "react";
 import ToDoItem from "./ToDoItem";
 
 class ToDoContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   updateItem = id => {
     this.props.updateFromChild(id);
   };

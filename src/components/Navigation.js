@@ -4,7 +4,7 @@ class Navigation extends React.Component {
   render() {
     return (
       <nav>
-        <h1>WONDERLIST</h1>
+        <h1>TODO APP</h1>
       </nav>
     );
   }
