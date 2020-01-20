@@ -3,18 +3,22 @@ import FormContainer from "./FormContainer";
 import ToDoContainer from "./ToDoContainer";
 import ToDonesContainer from "./ToDonesContainer";
 import Spinner from "./Spinner";
+import NotFound from "./NotFound";
 
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      loading: true
+      loading: true,
+      feedback: false,
+      showFriend: false
     };
   }
 
   async componentDidMount() {
-    const url = `https://todo-api.albertedelmann.now.sh/tasks/`;
+    // const url = `https://todo-api.albertedelmann.now.sh/tasks`;
+    const url = `https://ds-todo-api.now.sh/todos`;
 
     // fetch(url).then(response => {
     //   response.json().then(data => {
@@ -22,30 +26,82 @@ class MainContainer extends React.Component {
     //   });
     // });
 
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({ items: data, loading: false });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.length === 0)
+        this.setState({
+          items: data,
+          loading: false,
+          feedback: false,
+          showFriend: true
+        });
+      else {
+        this.setState({
+          items: data,
+          loading: false,
+          feedback: false,
+          showFriend: false
+        });
+      }
+    } catch (error) {
+      this.setState({ feedback: true });
+    }
   }
 
-  handleUpdate = id => {
-    const items = this.state.items;
-    const updatedItems = items.map(el => {
-      if (id === el.id) {
-        el.status = !el.status;
-      }
-      return el;
-    });
-    this.setState({ items: updatedItems });
+  handleUpdate = async item => {
+    const url = `https://ds-todo-api.now.sh/todos/${item._id}`;
+    const status = !item.status;
+    this.setState({ loading: true });
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status })
+      });
+      const data = await response.json();
+      const items = this.state.items;
+      const updatedItems = items.map(el => {
+        if (item._id === el._id) {
+          el.status = !el.status;
+        }
+        return el;
+      });
+
+      this.setState({
+        items: updatedItems,
+        loading: false,
+        feedback: false
+      });
+    } catch (error) {
+      this.setState({ feedback: true });
+    }
   };
 
-  handleAddTodo = value => {
-    const newItem = {
-      text: value,
-      status: false,
-      id: new Date().getTime()
-    };
+  handleAddTodo = async value => {
+    const url = `https://ds-todo-api.now.sh/todos`;
+    this.setState({ loading: true });
 
-    this.setState({ items: [...this.state.items, newItem] });
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: value })
+      });
+      const item = await response.json();
+      this.setState({
+        items: [...this.state.items, item],
+        feedback: false,
+        showFriend: false,
+        loading: false
+      });
+    } catch (error) {
+      this.setState({ feedback: true });
+    }
   };
 
   render() {
@@ -56,9 +112,13 @@ class MainContainer extends React.Component {
     return (
       <main className="main-container">
         <FormContainer addTodo={this.handleAddTodo}></FormContainer>
-        {this.state.loading ? (
-          <Spinner></Spinner>
-        ) : (
+        <div className="feedback">
+          {this.state.feedback && (
+            <small>Oops, our cat broke the internet. Please try again...</small>
+          )}
+        </div>
+        {this.state.loading && <Spinner></Spinner>}
+        {!this.state.showFriend ? (
           <span>
             <ToDoContainer
               items={todos}
@@ -69,6 +129,8 @@ class MainContainer extends React.Component {
               updateFromChild={this.handleUpdate}
             ></ToDonesContainer>
           </span>
+        ) : (
+          <NotFound></NotFound>
         )}
       </main>
     );
