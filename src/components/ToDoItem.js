@@ -3,8 +3,8 @@ import React from "react";
 const ToDoItem = props => {
   function updateItem(e) {
     e.preventDefault();
-    const id = props.data._id;
-    props.handleUpdate(id);
+    const item = props.data;
+    props.handleUpdate(item);
   }
 
   return (
