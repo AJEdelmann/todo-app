@@ -3,11 +3,9 @@ import React from "react";
 class FormContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ""
-    };
-    this.handleChange = this.handleChange.bind.this;
-    this.handleSubmit = this.handleSubmit.bind.this;
+    this.state = { value: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -28,8 +26,8 @@ class FormContainer extends React.Component {
             <input
               type="text"
               name="todo"
-              value={this.state.value}
               onChange={this.handleChange}
+              value={this.state.value}
             />
           </label>
           <input className="btn" type="submit" value="ADD" />

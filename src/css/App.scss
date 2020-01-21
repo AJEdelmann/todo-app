@@ -8,6 +8,8 @@ $headerHeight: 60px;
 * {
   font-family: 'Work Sans', sans-serif;
   color: #fff;
+  box-sizing: border-box;
+  word-break: break-word;
 }
 
 body {
@@ -22,13 +24,11 @@ body {
   .news-container {
     display: flex;
     margin-left: -30px;
-    /* gutter size offset */
     width: auto;
     padding: 10px;
 
     .col {
       padding-left: 30px;
-      /* gutter size */
       background-clip: padding-box;
 
       .article {
@@ -115,6 +115,12 @@ body {
   .main-container {
     padding: 20px 10px;
 
+    .feedback {
+      color: red;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+
     .form-container {
       .input-item {
         input {
@@ -132,6 +138,16 @@ body {
             outline: none;
           }
         }
+      }
+    }
+
+    .empty-screen {
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+
+      img {
+        height: 200px;
       }
     }
 
@@ -167,6 +183,10 @@ body {
         align-items: center;
         justify-content: space-between;
 
+        .btn {
+          font-size: 2em;
+        }
+
         p {
           text-decoration: line-through;
           opacity: 0.5;
@@ -184,6 +204,9 @@ body {
   margin: 100px auto;
   -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
+  position: absolute;
+  top: 0;
+  right: 10px;
 }
 
 @-webkit-keyframes sk-rotateplane {

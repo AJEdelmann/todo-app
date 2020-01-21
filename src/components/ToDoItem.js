@@ -11,7 +11,7 @@ const ToDoItem = props => {
     <div className="item">
       <p>{props.data.text}</p>
       <button className="btn" onClick={updateItem}>
-        {props.data.status ? "↻" : "✓"}
+        {props.data.status ? "☑" : "☐"}
       </button>
     </div>
   );

@@ -17,8 +17,8 @@ class MainContainer extends React.Component {
   }
 
   async componentDidMount() {
-    // const url = `https://todo-api.albertedelmann.now.sh/tasks`;
-    const url = `https://ds-todo-api.now.sh/todos`;
+    const url = `https://todo-api.albertedelmann.now.sh/tasks`;
+    // const url = `https://ds-todo-api.now.sh/todos`;
 
     // fetch(url).then(response => {
     //   response.json().then(data => {
@@ -50,7 +50,7 @@ class MainContainer extends React.Component {
   }
 
   handleUpdate = async item => {
-    const url = `https://ds-todo-api.now.sh/todos/${item._id}`;
+    const url = `https://todo-api.albertedelmann.now.sh/tasks/${item._id}`;
     const status = !item.status;
     this.setState({ loading: true });
     try {
@@ -81,7 +81,7 @@ class MainContainer extends React.Component {
   };
 
   handleAddTodo = async value => {
-    const url = `https://ds-todo-api.now.sh/todos`;
+    const url = `https://todo-api.albertedelmann.now.sh/tasks`;
     this.setState({ loading: true });
 
     try {
