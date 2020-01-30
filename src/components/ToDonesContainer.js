@@ -1,10 +1,11 @@
 import React from "react";
 import ToDoItem from "./ToDoItem";
+import { connect } from "react-redux";
 
 class ToDonesContainer extends React.Component {
-  updateItem = id => {
-    this.props.updateFromChild(id);
-  };
+  // updateItem = id => {
+  //   this.props.updateFromChild(id);
+  // };
 
   render() {
     const data = this.props.items;
@@ -14,7 +15,7 @@ class ToDonesContainer extends React.Component {
         <ToDoItem
           key={el._id}
           data={el}
-          handleUpdate={this.updateItem}
+          // handleUpdate={this.updateItem}
         ></ToDoItem>
       );
     });
@@ -32,4 +33,8 @@ class ToDonesContainer extends React.Component {
   }
 }
 
-export default ToDonesContainer;
+const mapStateToProps = state => {
+  return { items: state.items.filter(el => el.status) };
+};
+
+export default connect(mapStateToProps)(ToDonesContainer);

@@ -4,110 +4,116 @@ import ToDoContainer from "./ToDoContainer";
 import ToDonesContainer from "./ToDonesContainer";
 import Spinner from "./Spinner";
 import NotFound from "./NotFound";
+import { connect } from "react-redux";
 
 class MainContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      items: [],
-      loading: true,
-      feedback: false,
-      showFriend: false
-    };
+    this.state = {};
   }
 
-  async componentDidMount() {
-    const url = `https://todo-api.albertedelmann.now.sh/tasks`;
-    // const url = `https://ds-todo-api.now.sh/todos`;
+  // async componentDidMount() {
+  //   if (data.length === 0)
+  //     this.setState({
+  //       items: data,
+  //       loading: false,
+  //       feedback: false,
+  //       showFriend: true
+  //     });
+  //   else {
+  //     this.setState({
+  //       items: data,
+  //       loading: false,
+  //       feedback: false,
+  //       showFriend: false
+  //     });
+  //   }
+  // }
 
-    // fetch(url).then(response => {
-    //   response.json().then(data => {
-    //     this.setState({ items: data });
-    //   });
-    // });
+  // async componentDidMount() {
+  //   const url = `https://todo-api.albertedelmann.now.sh/tasks`;
+  //   try {
+  //     const response = await fetch(url);
+  //     const data = await response.json();
+  //     if (data.length === 0)
+  //       this.setState({
+  //         items: data,
+  //         loading: false,
+  //         feedback: false,
+  //         showFriend: true
+  //       });
+  //     else {
+  //       this.setState({
+  //         items: data,
+  //         loading: false,
+  //         feedback: false,
+  //         showFriend: false
+  //       });
+  //     }
+  //   } catch (error) {
+  //     this.setState({ feedback: true });
+  //   }
+  // }
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      if (data.length === 0)
-        this.setState({
-          items: data,
-          loading: false,
-          feedback: false,
-          showFriend: true
-        });
-      else {
-        this.setState({
-          items: data,
-          loading: false,
-          feedback: false,
-          showFriend: false
-        });
-      }
-    } catch (error) {
-      this.setState({ feedback: true });
-    }
-  }
+  // handleUpdate = async item => {
+  //   const url = `https://todo-api.albertedelmann.now.sh/tasks/${item._id}`;
+  //   const status = !item.status;
+  //   this.setState({ loading: true });
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ status })
+  //     });
+  //     const data = await response.json();
+  //     const items = this.state.items;
+  //     const updatedItems = items.map(el => {
+  //       if (item._id === el._id) {
+  //         el.status = !el.status;
+  //       }
+  //       return el;
+  //     });
 
-  handleUpdate = async item => {
-    const url = `https://todo-api.albertedelmann.now.sh/tasks/${item._id}`;
-    const status = !item.status;
-    this.setState({ loading: true });
-    try {
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status })
-      });
-      const data = await response.json();
-      const items = this.state.items;
-      const updatedItems = items.map(el => {
-        if (item._id === el._id) {
-          el.status = !el.status;
-        }
-        return el;
-      });
+  //     this.setState({
+  //       items: updatedItems,
+  //       loading: false,
+  //       feedback: false
+  //     });
+  //   } catch (error) {
+  //     this.setState({ feedback: true });
+  //   }
+  // };
 
-      this.setState({
-        items: updatedItems,
-        loading: false,
-        feedback: false
-      });
-    } catch (error) {
-      this.setState({ feedback: true });
-    }
-  };
+  // handleAddTodo = async value => {
+  //   const url = `https://todo-api.albertedelmann.now.sh/tasks`;
+  //   this.setState({ loading: true });
 
-  handleAddTodo = async value => {
-    const url = `https://todo-api.albertedelmann.now.sh/tasks`;
-    this.setState({ loading: true });
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ text: value })
-      });
-      const item = await response.json();
-      this.setState({
-        items: [...this.state.items, item],
-        feedback: false,
-        showFriend: false,
-        loading: false
-      });
-    } catch (error) {
-      this.setState({ feedback: true });
-    }
-  };
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify({ text: value })
+  //     });
+  //     const item = await response.json();
+  //     this.setState({
+  //       items: [...this.state.items, item],
+  //       feedback: false,
+  //       showFriend: false,
+  //       loading: false
+  //     });
+  //   } catch (error) {
+  //     this.setState({ feedback: true });
+  //   }
+  // };
 
   render() {
-    const data = this.state.items;
-    const todos = data.filter(el => !el.status);
-    const todones = data.filter(el => el.status);
+    // const data = this.state.items;
+    // const todos = data.filter(el => !el.status);
+    // const todones = data.filter(el => el.status);
 
     return (
       <main className="main-container">
@@ -121,12 +127,12 @@ class MainContainer extends React.Component {
         {!this.state.showFriend ? (
           <span>
             <ToDoContainer
-              items={todos}
-              updateFromChild={this.handleUpdate}
+            // items={todos}
+            // updateFromChild={this.handleUpdate}
             ></ToDoContainer>
             <ToDonesContainer
-              items={todones}
-              updateFromChild={this.handleUpdate}
+            // items={todones}
+            // updateFromChild={this.handleUpdate}
             ></ToDonesContainer>
           </span>
         ) : (
@@ -137,4 +143,12 @@ class MainContainer extends React.Component {
   }
 }
 
-export default MainContainer;
+const mapsStateToProps = state => {
+  return {
+    feedback: state.feedback,
+    loading: state.loading,
+    showFriend: state.showFriend
+  };
+};
+
+export default connect(mapsStateToProps)(MainContainer);

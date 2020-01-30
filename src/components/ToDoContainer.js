@@ -1,11 +1,11 @@
 import React from "react";
 import ToDoItem from "./ToDoItem";
-import friend from "../images/friend.png";
+import { connect } from "react-redux";
 
 class ToDoContainer extends React.Component {
-  updateItem = id => {
-    this.props.updateFromChild(id);
-  };
+  // updateItem = id => {
+  //   this.props.updateFromChild(id);
+  // };
 
   render() {
     const data = this.props.items;
@@ -14,7 +14,7 @@ class ToDoContainer extends React.Component {
         <ToDoItem
           key={el._id}
           data={el}
-          handleUpdate={this.updateItem}
+          // handleUpdate={this.updateItem}
         ></ToDoItem>
       );
     });
@@ -29,8 +29,7 @@ class ToDoContainer extends React.Component {
         ) : (
           <div className="todos">
             <h5>TODOS</h5>
-            <img src={friend} alt=""></img>
-            <p>Use the form to create a new todo!</p>
+            {todoItems}
           </div>
         )}
       </div>
@@ -38,4 +37,8 @@ class ToDoContainer extends React.Component {
   }
 }
 
-export default ToDoContainer;
+const mapStateToProps = state => {
+  return { items: state.items.filter(el => !el.status) };
+};
+
+export default connect(mapStateToProps)(ToDoContainer);
