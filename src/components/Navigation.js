@@ -5,8 +5,8 @@ class Navigation extends React.Component {
   render() {
     return (
       <nav>
-        <NavLink to="/">
-          <h1>TODO APP</h1>
+        <NavLink style={{ textDecoration: "none" }} to="/">
+          <h1 className="logo">TODO APP</h1>
         </NavLink>
         <ul>
           <li>

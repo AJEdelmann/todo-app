@@ -6,6 +6,7 @@ class FormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "" };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,9 +19,7 @@ class FormContainer extends React.Component {
     e.preventDefault();
     this.setState({ value: "" });
     this.props.showLoading();
-    setTimeout(() => {
-      this.props.addTodo(this.state.value);
-    }, 2000);
+    this.props.addTodo(this.state.value);
   }
 
   render() {
@@ -31,8 +30,8 @@ class FormContainer extends React.Component {
             <input
               type="text"
               name="todo"
-              onChange={this.handleChange}
               value={this.state.value}
+              onChange={this.handleChange}
             />
           </label>
           <input className="btn" type="submit" value="ADD" />

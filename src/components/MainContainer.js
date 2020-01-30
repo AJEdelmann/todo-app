@@ -5,6 +5,7 @@ import ToDonesContainer from "./ToDonesContainer";
 import Spinner from "./Spinner";
 import NotFound from "./NotFound";
 import { connect } from "react-redux";
+import { fetchData } from "../actions";
 
 class MainContainer extends React.Component {
   constructor(props) {
@@ -12,128 +13,26 @@ class MainContainer extends React.Component {
     this.state = {};
   }
 
-  // async componentDidMount() {
-  //   if (data.length === 0)
-  //     this.setState({
-  //       items: data,
-  //       loading: false,
-  //       feedback: false,
-  //       showFriend: true
-  //     });
-  //   else {
-  //     this.setState({
-  //       items: data,
-  //       loading: false,
-  //       feedback: false,
-  //       showFriend: false
-  //     });
-  //   }
-  // }
-
-  // async componentDidMount() {
-  //   const url = `https://todo-api.albertedelmann.now.sh/tasks`;
-  //   try {
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     if (data.length === 0)
-  //       this.setState({
-  //         items: data,
-  //         loading: false,
-  //         feedback: false,
-  //         showFriend: true
-  //       });
-  //     else {
-  //       this.setState({
-  //         items: data,
-  //         loading: false,
-  //         feedback: false,
-  //         showFriend: false
-  //       });
-  //     }
-  //   } catch (error) {
-  //     this.setState({ feedback: true });
-  //   }
-  // }
-
-  // handleUpdate = async item => {
-  //   const url = `https://todo-api.albertedelmann.now.sh/tasks/${item._id}`;
-  //   const status = !item.status;
-  //   this.setState({ loading: true });
-  //   try {
-  //     const response = await fetch(url, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({ status })
-  //     });
-  //     const data = await response.json();
-  //     const items = this.state.items;
-  //     const updatedItems = items.map(el => {
-  //       if (item._id === el._id) {
-  //         el.status = !el.status;
-  //       }
-  //       return el;
-  //     });
-
-  //     this.setState({
-  //       items: updatedItems,
-  //       loading: false,
-  //       feedback: false
-  //     });
-  //   } catch (error) {
-  //     this.setState({ feedback: true });
-  //   }
-  // };
-
-  // handleAddTodo = async value => {
-  //   const url = `https://todo-api.albertedelmann.now.sh/tasks`;
-  //   this.setState({ loading: true });
-
-  //   try {
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify({ text: value })
-  //     });
-  //     const item = await response.json();
-  //     this.setState({
-  //       items: [...this.state.items, item],
-  //       feedback: false,
-  //       showFriend: false,
-  //       loading: false
-  //     });
-  //   } catch (error) {
-  //     this.setState({ feedback: true });
-  //   }
-  // };
+  componentDidMount() {
+    this.props.fetchData();
+  }
 
   render() {
-    // const data = this.state.items;
-    // const todos = data.filter(el => !el.status);
-    // const todones = data.filter(el => el.status);
-
+    console.log("I AM RERENDERING");
+    console.log("MAINCONTAINER PROPS: ", this.props);
     return (
       <main className="main-container">
         <FormContainer addTodo={this.handleAddTodo}></FormContainer>
         <div className="feedback">
-          {this.state.feedback && (
+          {this.props.feedback && (
             <small>Oops, our cat broke the internet. Please try again...</small>
           )}
         </div>
-        {this.state.loading && <Spinner></Spinner>}
-        {!this.state.showFriend ? (
+        {this.props.loading && <Spinner></Spinner>}
+        {!this.props.showFriend ? (
           <span>
-            <ToDoContainer
-            // items={todos}
-            // updateFromChild={this.handleUpdate}
-            ></ToDoContainer>
-            <ToDonesContainer
-            // items={todones}
-            // updateFromChild={this.handleUpdate}
-            ></ToDonesContainer>
+            <ToDoContainer></ToDoContainer>
+            <ToDonesContainer></ToDonesContainer>
           </span>
         ) : (
           <NotFound></NotFound>
@@ -151,4 +50,4 @@ const mapsStateToProps = state => {
   };
 };
 
-export default connect(mapsStateToProps)(MainContainer);
+export default connect(mapsStateToProps, { fetchData })(MainContainer);
